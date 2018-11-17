@@ -22,4 +22,6 @@ COPY --from=build /tmp/server /usr/bin/app/server
 
 USER app
 
+EXPOSE 8080
+
 CMD ["/usr/bin/app/server"]
