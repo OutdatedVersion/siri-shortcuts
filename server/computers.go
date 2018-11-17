@@ -15,5 +15,9 @@ func ProcessAction(context *fasthttp.RequestCtx, hub *Hub) {
 		"Received request to perform action %s",
 		context.UserValue("action"))
 
+	if !IsAuthorized(context, "computers."+action) {
+		return
+	}
+
 	hub.broadcast <- []byte(action)
 }
