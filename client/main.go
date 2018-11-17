@@ -10,12 +10,18 @@ import (
 func main() {
 	eventHubURI := os.Getenv("EVENT_HUB_URI")
 
+	if eventHubURI == "" {
+		fmt.Println("Missing EVENT_HUB_URI environment variable")
+		return
+	}
+
 	fmt.Printf("Using event hub URI: %s\n", eventHubURI)
 
 	websocket, err := fastws.Dial(eventHubURI)
 
 	if err != nil {
 		fmt.Printf("Failed to open WebSocket: %s", err)
+		return
 	}
 
 	var message []byte
