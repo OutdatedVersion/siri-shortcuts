@@ -36,8 +36,8 @@ func main() {
 
 	go hub.run()
 
-	router.GET("/hub", fastws.Upgrade(createWebSocketWrapper(hub)))
-	router.POST("/:action", createHTTPWrapper(hub))
+	router.GET("/api/hub", fastws.Upgrade(createWebSocketWrapper(hub)))
+	router.POST("/api/:action", createHTTPWrapper(hub))
 
 	if err := fasthttp.ListenAndServe(*address, router.Handler); err != nil {
 		log.Fatalf("Failed to start server: %s", err)
