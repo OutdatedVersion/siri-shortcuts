@@ -8,4 +8,4 @@ build: clean
 	go build -o build/client
 
 installDependencies:
-	go get -u github.com/dgrr/fastws
+	go get -v -u github.com/dgrr/fastws
