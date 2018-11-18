@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/dgrr/fastws"
 )
@@ -37,9 +38,13 @@ func main() {
 			break
 		}
 
-		fmt.Printf("Received message: %s\n", message)
+		text := strings.ToLower(string(message))
 
-		switch string(message) {
+		if text != "ping" {
+			fmt.Printf("Received message: %s\n", text)
+		}
+
+		switch text {
 		case "lock":
 			LockComputer()
 		}
