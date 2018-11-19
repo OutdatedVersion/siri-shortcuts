@@ -1,0 +1,13 @@
+[Unit]
+Description=Siri shortcut processor
+
+[Service]
+User=ben
+WorkingDirectory=/opt/siri-shortcuts
+ExecStart=/opt/siri-shortcuts/run.sh
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
