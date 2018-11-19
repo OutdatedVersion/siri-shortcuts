@@ -8,6 +8,10 @@ import (
 	"github.com/dgrr/fastws"
 )
 
+const (
+	pingInterval = 5 * time.Second
+)
+
 type Client struct {
 	hub *Hub
 
@@ -40,7 +44,7 @@ func (client *Client) read() {
 }
 
 func (client *Client) write() {
-	ticker := time.NewTicker(5 * time.Second)
+	ticker := time.NewTicker(pingInterval)
 
 	defer func() {
 		ticker.Stop()
