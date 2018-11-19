@@ -33,8 +33,10 @@ func (hub *Hub) run() {
 	for {
 		select {
 		case client := <-hub.register:
+			fmt.Printf("Registering client %v\n", &client)
 			hub.clients[client] = true
 		case client := <-hub.unregister:
+			fmt.Printf("Unregistering client %v\n", &client)
 			if _, ok := hub.clients[client]; ok {
 				delete(hub.clients, client)
 				close(client.send)
@@ -64,6 +66,4 @@ func HandleWebSocket(socket *fastws.Conn, hub *Hub) {
 
 	go client.write()
 	client.read()
-
-	fmt.Printf("Registered client %v\n", &client)
 }
