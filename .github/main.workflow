@@ -5,5 +5,5 @@ workflow "Build server" {
 
 action "GitHub Action for Docker" {
   uses = "actions/docker/cli@76ff57a"
-  args = "build -t outdatedversion/siri-shortcuts-server server/Dockerfile"
+  args = "build -t outdatedversion/siri-shortcuts-server server/"
 }
