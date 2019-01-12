@@ -12,7 +12,7 @@ import (
 func LockComputer() {
 	fmt.Println("Locking computer...")
 
-	RunCommand("dbus-send", "--type=method_call", "--dest=org.gnome.ScreenSaver", "/org/gnome/ScreenSaver", "org.gnome.ScreenSaver.Lock")
+	runCommand("dbus-send", "--type=method_call", "--dest=org.gnome.ScreenSaver", "/org/gnome/ScreenSaver", "org.gnome.ScreenSaver.Lock")
 }
 
 // ShutdownComputer will make its best attempt to initiate
@@ -20,10 +20,10 @@ func LockComputer() {
 func ShutdownComputer() {
 	fmt.Println("Shutting down computer...")
 
-	RunCommand("shutdown", "-h", "now")
+	runCommand("shutdown", "-h", "now")
 }
 
-func RunCommand(name string, args ...string) bool {
+func runCommand(name string, args ...string) bool {
 	command := exec.Command(name, args...)
 
 	output, err := command.CombinedOutput()
