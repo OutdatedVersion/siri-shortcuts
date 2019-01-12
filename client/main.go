@@ -47,6 +47,9 @@ func main() {
 		switch text {
 		case "lock":
 			LockComputer()
+
+		case "shutdown":
+			ShutdownComputer()
 		}
 	}
 }

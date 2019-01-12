@@ -12,14 +12,28 @@ import (
 func LockComputer() {
 	fmt.Println("Locking computer...")
 
-	cmd := exec.Command("dbus-send", "--type=method_call", "--dest=org.gnome.ScreenSaver", "/org/gnome/ScreenSaver", "org.gnome.ScreenSaver.Lock")
-	output, err := cmd.CombinedOutput()
+	RunCommand("dbus-send", "--type=method_call", "--dest=org.gnome.ScreenSaver", "/org/gnome/ScreenSaver", "org.gnome.ScreenSaver.Lock")
+}
+
+func ShutdownComputer() {
+	fmt.Println("Shutting down computer...")
+
+	RunCommand("shutdown", "-h", "now")
+}
+
+func RunCommand(name string, args ...string) bool {
+	command := exec.Command(name, args...)
+
+	output, err := command.CombinedOutput()
 
 	if err != nil {
 		fmt.Printf(" -> Error: %s\n", err)
+		return false
 	}
 
 	if len(output) > 0 {
 		fmt.Printf(" -> Output: %s\n", output)
 	}
+
+	return true
 }
