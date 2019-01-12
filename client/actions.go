@@ -15,6 +15,8 @@ func LockComputer() {
 	RunCommand("dbus-send", "--type=method_call", "--dest=org.gnome.ScreenSaver", "/org/gnome/ScreenSaver", "org.gnome.ScreenSaver.Lock")
 }
 
+// ShutdownComputer will make its best attempt to initiate
+// a system shutdown ASAP.
 func ShutdownComputer() {
 	fmt.Println("Shutting down computer...")
 
