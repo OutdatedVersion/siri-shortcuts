@@ -3,16 +3,21 @@ package main
 import (
 	"fmt"
 	"os/exec"
+	"runtime"
 )
 
 // LockComputer will make its best attempt to lock the
 // computer running this program.
-//
-// Note that this only supports Linux using a GNOME environment.
 func LockComputer() {
 	fmt.Println("Locking computer...")
 
-	runCommand("dbus-send", "--type=method_call", "--dest=org.gnome.ScreenSaver", "/org/gnome/ScreenSaver", "org.gnome.ScreenSaver.Lock")
+	if runtime.GOOS == "linux" {
+		runCommand("dbus-send", "--type=method_call", "--dest=org.gnome.ScreenSaver", "/org/gnome/ScreenSaver", "org.gnome.ScreenSaver.Lock")
+	} else if runtime.GOOS == "darwin" {
+		runCommand("/System/Library/CoreServices/Menu Extras/User.menu/Contents/Resources/CGSession", "-suspend")
+	} else {
+		fmt.Println("Cannot lock computer; unsupported operating system")
+	}
 }
 
 // ShutdownComputer will make its best attempt to initiate
