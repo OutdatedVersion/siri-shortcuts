@@ -8,10 +8,10 @@ import (
 )
 
 const (
-	// Test
+	// The header that is used to grab authentication data.
 	headerName = "Authorization"
 
-	// Test
+	// The authorization type passed into the authentication type.
 	authType = "Bearer "
 )
 
