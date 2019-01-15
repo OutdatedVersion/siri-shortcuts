@@ -25,6 +25,8 @@ func main() {
 		return
 	}
 
+	fmt.Println("Opened socket to event hub")
+
 	var message []byte
 
 	for {
