@@ -23,7 +23,7 @@ type Client struct {
 func (client *Client) read() {
 	defer func() {
 		client.hub.unregister <- client
-		client.connection.Close("Server shutting down")
+		client.connection.Close()
 	}()
 
 	var message []byte
@@ -48,7 +48,7 @@ func (client *Client) write() {
 
 	defer func() {
 		ticker.Stop()
-		client.connection.Close("Server closing")
+		client.connection.Close()
 	}()
 
 	for {
