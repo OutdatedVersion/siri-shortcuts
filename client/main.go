@@ -1,12 +1,18 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"strings"
 
 	"github.com/dgrr/fastws"
 )
+
+type Message struct {
+	Action  string                 `json:"action"`
+	Payload map[string]interface{} `json:"payload"`
+}
 
 func main() {
 	eventHubURI := os.Getenv("EVENT_HUB_URI")
@@ -27,10 +33,10 @@ func main() {
 
 	fmt.Println("Opened socket to event hub")
 
-	var message []byte
+	var frame []byte
 
 	for {
-		_, message, err = websocket.ReadMessage(message[:0])
+		_, frame, err = websocket.ReadMessage(frame[:0])
 
 		if err != nil {
 			if err != fastws.EOF {
@@ -40,13 +46,17 @@ func main() {
 			break
 		}
 
-		text := strings.ToLower(string(message))
+		message := Message{}
 
-		if text != "ping" {
-			fmt.Printf("Received message: %s\n", text)
+		json.Unmarshal(frame, &message)
+
+		message.Action = strings.ToLower(message.Action)
+
+		if message.Action != "" {
+			fmt.Printf("Received message: %s\n", message.Action)
 		}
 
-		switch text {
+		switch message.Action {
 		case "lock":
 			LockComputer()
 
