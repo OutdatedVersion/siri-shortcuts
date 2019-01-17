@@ -20,6 +20,13 @@ type Hub struct {
 	unregister chan *Client
 }
 
+// Message is a single serializable "frame" within
+// the websocket.
+type Message struct {
+	Action  string      `json:"action"`
+	Payload interface{} `json:"payload"`
+}
+
 func newHub() *Hub {
 	return &Hub{
 		broadcast:  make(chan []byte),
