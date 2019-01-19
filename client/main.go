@@ -10,8 +10,8 @@ import (
 )
 
 type Message struct {
-	Action  string                 `json:"action"`
-	Payload map[string]interface{} `json:"payload"`
+	Action  string `json:"action"`
+	Payload string `json:"payload"`
 }
 
 func main() {
@@ -47,8 +47,13 @@ func main() {
 		}
 
 		message := Message{}
+		var payload map[string]interface{}
 
 		json.Unmarshal(frame, &message)
+
+		if message.Payload != "" {
+			json.Unmarshal([]byte(message.Payload), &payload)
+		}
 
 		message.Action = strings.ToLower(message.Action)
 
